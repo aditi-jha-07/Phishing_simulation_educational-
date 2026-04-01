@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0a0e1a;
+  --surface: #0f1628;
+  --card: #141d35;
+  --border: #1e2d50;
+  --accent: #00d4ff;
+  --danger: #ff3b5c;
+  --success: #00ff88;
+  --warning: #ffb800;
+  --muted: #4a5a80;
+  --text: #c8d4f0;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', system-ui, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scanline overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 212, 255, 0.015) 2px,
+    rgba(0, 212, 255, 0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Glow effects */
+.glow-accent { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+.glow-danger { box-shadow: 0 0 20px rgba(255, 59, 92, 0.3); }
+.glow-success { box-shadow: 0 0 20px rgba(0, 255, 136, 0.3); }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* Blinking cursor */
+.cursor-blink::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: var(--accent);
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Terminal text effect */
+.terminal-text {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent);
+}
+
+/* Card hover */
+.card-hover {
+  transition: all 0.2s ease;
+}
+.card-hover:hover {
+  border-color: rgba(0, 212, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+}
+
+/* Phish button pulse */
+@keyframes phish-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 59, 92, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(255, 59, 92, 0); }
+}
+
+/* Button styles */
+.btn-primary {
+  @apply bg-hunter-accent text-hunter-bg font-bold py-3 px-6 rounded-lg 
+         transition-all duration-200 hover:brightness-110 active:scale-95
+         disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-danger {
+  @apply bg-hunter-danger text-white font-bold py-3 px-6 rounded-lg 
+         transition-all duration-200 hover:brightness-110 active:scale-95;
+}
+
+.btn-ghost {
+  @apply border border-hunter-border text-hunter-text font-semibold py-3 px-6 rounded-lg 
+         transition-all duration-200 hover:border-hunter-accent hover:text-hunter-accent active:scale-95;
+}
+
+.input-field {
+  @apply w-full bg-hunter-surface border border-hunter-border rounded-lg px-4 py-3
+         text-hunter-text placeholder-hunter-muted
+         focus:outline-none focus:border-hunter-accent focus:ring-1 focus:ring-hunter-accent
+         transition-all duration-200;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.card {
+  @apply bg-hunter-card border border-hunter-border rounded-xl p-6;
+}
